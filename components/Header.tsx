@@ -15,16 +15,13 @@ const Header: React.FC = () => {
           <Link href="/" className="flex items-center space-x-2 group">
             <div className="relative">
               <img 
-                src="https://placehold.co/180x50/3a5a40/ffffff?text=Eco+Zone+Club" 
+                src="/logo.png" 
                 alt="Eco Zone Club Logo" 
-                className="h-10 w-auto rounded-md transition-transform duration-300 group-hover:scale-105"
-                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { 
-                  e.currentTarget.src = 'https://placehold.co/180x50/3a5a40/ffffff?text=EZC'; 
-                }}
+                className="h-24 w-32 rounded-md transition-transform duration-300 group-hover:scale-105"
               />
             </div>
           </Link>
-
+                {/*  this section is only for the best in the world i will be the world*/}
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-1">
             <Button 

@@ -57,7 +57,7 @@ const Hero: React.FC = () => {
               size="lg" 
               className="group border-2 border-[#2d5a3d] text-[#2d5a3d] bg-white hover:bg-[#2d5a3d] hover:text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-base px-8 py-6 rounded-xl font-semibold"
             >
-              <Link href="#about" className="flex items-center justify-center space-x-2">
+              <Link href="/blog" className="flex items-center justify-center space-x-2">
                 <span>View Upcoming Events</span>
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
