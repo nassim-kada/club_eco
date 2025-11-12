@@ -2,21 +2,39 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Eye, Search, X, LogOut, Menu, FileText, BarChart3, Users } from 'lucide-react';
 
+interface Blog {
+  id: number;
+  title: string;
+  excerpt: string;
+  content?: string;
+  author: string;
+  date: string;
+  status: 'Published' | 'Draft';
+  views: number;
+}
+
+interface FormData {
+  title: string;
+  excerpt: string;
+  content: string;
+  status: 'Published' | 'Draft';
+  author: string;
+}
+
 export default function BlogDashboard() {
-  const [blogs, setBlogs] = useState([
+  const [blogs, setBlogs] = useState<Blog[]>([
     { id: 1, title: 'Getting Started with Eco Zone Club', excerpt: 'Welcome to our community! Learn how to make the most of your membership...', author: 'Admin', date: '2024-11-10', status: 'Published', views: 245 },
     { id: 2, title: 'Upcoming Workshop: Innovation Summit', excerpt: 'Join us for an exciting workshop on innovation and entrepreneurship...', author: 'Admin', date: '2024-11-08', status: 'Published', views: 189 },
     { id: 3, title: 'Member Spotlight: Success Stories', excerpt: 'Hear from our members about their journey and achievements...', author: 'Admin', date: '2024-11-05', status: 'Draft', views: 0 },
   ]);
 
   const [showModal, setShowModal] = useState(false);
-  const [modalMode, setModalMode] = useState('create'); 
-  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [modalMode, setModalMode] = useState<'create' | 'edit' | 'view'>('create');
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Form state
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     title: '',
     excerpt: '',
     content: '',
@@ -24,7 +42,7 @@ export default function BlogDashboard() {
     author: 'Admin'
   });
 
-  const openModal = (mode, blog = null) => {
+  const openModal = (mode: 'create' | 'edit' | 'view', blog: Blog | null = null) => {
     setModalMode(mode);
     if (blog) {
       setSelectedBlog(blog);
@@ -60,8 +78,7 @@ export default function BlogDashboard() {
   };
 
   const handleCreate = () => {
-    // Your API call here
-    const newBlog = {
+    const newBlog: Blog = {
       id: blogs.length + 1,
       ...formData,
       date: new Date().toISOString().split('T')[0],
@@ -72,7 +89,10 @@ export default function BlogDashboard() {
   };
 
   const handleUpdate = () => {
-    // Your API call here
+    if (!selectedBlog) {
+      console.error('No blog selected for update');
+      return;
+    }
     setBlogs(blogs.map(blog => 
       blog.id === selectedBlog.id 
         ? { ...blog, ...formData }
@@ -81,9 +101,8 @@ export default function BlogDashboard() {
     closeModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     if (window.confirm('Are you sure you want to delete this blog post?')) {
-      // Your API call here
       setBlogs(blogs.filter(blog => blog.id !== id));
     }
   };
@@ -317,7 +336,7 @@ export default function BlogDashboard() {
 
             {/* Modal Body */}
             <div className="p-6 space-y-6">
-              {modalMode === 'view' ? (
+              {modalMode === 'view' && selectedBlog ? (
                 <>
                   <div>
                     <h3 className="text-3xl font-bold text-gray-900 mb-4">{selectedBlog.title}</h3>
@@ -388,7 +407,7 @@ export default function BlogDashboard() {
                     </label>
                     <select
                       value={formData.status}
-                      onChange={(e) => setFormData({...formData, status: e.target.value})}
+                      onChange={(e) => setFormData({...formData, status: e.target.value as 'Published' | 'Draft'})}
                       className="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2d5a3d] focus:border-transparent transition-all duration-200"
                     >
                       <option value="Draft">Draft</option>
