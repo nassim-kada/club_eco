@@ -1,7 +1,8 @@
 import type { Config } from "tailwindcss"
 
 const config: Config = {
-  // 1. Make sure Tailwind scans all your files for classes
+    darkMode: ['class'],
+    // 1. Make sure Tailwind scans all your files for classes
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}', // Your components are in /components
@@ -9,39 +10,100 @@ const config: Config = {
     './src/**/*.{js,ts,jsx,tsx,mdx}', // Also good to include /src
   ],
   theme: {
-    extend: {
-      // 2. DEFINE YOUR CUSTOM COLORS HERE
-      colors: {
-        "ezc-green": "#3a5a40",  // I'm guessing this color from your logo placeholder
-        "ezc-teal": "#588157",   // You might need to change this value
-        "ezc-orange": "#e85d04", // You might need to change this value
-        "ezc-orange-dark": "#d05303", // A darker version for hover
-      },
-      // 3. You are also using a custom font in layout.tsx
-      fontFamily: {
-        lexend: ["var(--font-lexend)", "sans-serif"],
-      },
-      // 4. You are using custom animation classes
-      animation: {
-        'fade-in': 'fade-in 1s ease-out forwards',
-        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
-        'fade-in-down': 'fade-in-up 0.8s ease-out forwards', // You have fade-in-down in Header.tsx
-      },
-      keyframes: {
-        'fade-in': {
-          'from': { opacity: '0' },
-          'to': { opacity: '1' },
-        },
-        'fade-in-up': {
-          'from': { opacity: '0', transform: 'translateY(20px)' },
-          'to': { opacity: '1', transform: 'translateY(0)' },
-        },
-        'fade-in-down': {
-          'from': { opacity: '0', transform: 'translateY(-20px)' },
-          'to': { opacity: '1', transform: 'translateY(0)' },
-        },
-      }
-    },
+  	extend: {
+  		colors: {
+  			'ezc-green': '#3a5a40',
+  			'ezc-teal': '#588157',
+  			'ezc-orange': '#e85d04',
+  			'ezc-orange-dark': '#d05303',
+  			background: 'hsl(var(--background))',
+  			foreground: 'hsl(var(--foreground))',
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			primary: {
+  				DEFAULT: 'hsl(var(--primary))',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			muted: {
+  				DEFAULT: 'hsl(var(--muted))',
+  				foreground: 'hsl(var(--muted-foreground))'
+  			},
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		fontFamily: {
+  			lexend: [
+  				'var(--font-lexend)',
+  				'sans-serif'
+  			]
+  		},
+  		animation: {
+  			'fade-in': 'fade-in 1s ease-out forwards',
+  			'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+  			'fade-in-down': 'fade-in-up 0.8s ease-out forwards'
+  		},
+  		keyframes: {
+  			'fade-in': {
+  				from: {
+  					opacity: '0'
+  				},
+  				to: {
+  					opacity: '1'
+  				}
+  			},
+  			'fade-in-up': {
+  				from: {
+  					opacity: '0',
+  					transform: 'translateY(20px)'
+  				},
+  				to: {
+  					opacity: '1',
+  					transform: 'translateY(0)'
+  				}
+  			},
+  			'fade-in-down': {
+  				from: {
+  					opacity: '0',
+  					transform: 'translateY(-20px)'
+  				},
+  				to: {
+  					opacity: '1',
+  					transform: 'translateY(0)'
+  				}
+  			}
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		}
+  	}
   },
   plugins: [
     require("tailwindcss-animate"), // You are using animate-fade-in-up, etc.
