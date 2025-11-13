@@ -15,7 +15,10 @@ const members: Member[] = [
   { name: 'Ouail Yasmine', role: 'President & Co-Founder', delay: '0.1s', initials: 'OY', color: 'from-[#2d5a3d] to-[#1e5f5a]' },
   { name: 'Yanis Benamara', role: 'Vice President', delay: '0.2s', initials: 'YB', color: 'from-[#1e5f5a] to-[#2d8b84]' },
   { name: 'Nassim Kada', role: 'Head of Technology', delay: '0.3s', initials: 'NK', color: 'from-[#c85a25] to-[#d97638]', image: '/nassim.png' },
-  { name: 'Anis Hammad', role: 'Financial Manager', delay: '0.2s',initials:'AH', color:'from-[#1a5c61] to-[#2963df]' }
+  { name: 'Anis Hammad', role: 'Financial Manager', delay: '0.2s',initials:'AH', color:'from-[#1a5c61] to-[#2963df]' },
+  { name: 'Yasser Meghrabi',role:'Head of Communication',delay:'0.2s', initials:'YM',color:'from-[#2d5a3d] to-[#1e5f5a]'},
+  { name: 'Sara Aissaoui',role:'media',delay:'0.3s',initials:'SA',color:'from-[#2d5a3d] to-[#1e5f5a]'},
+  { name: 'Ikram',role:'organisation',delay:'0.3s',initials:'SS',color:'from-[#2d5a3d] to-[#1e5f5a]'}
 ];
 
 const Members: React.FC = () => {

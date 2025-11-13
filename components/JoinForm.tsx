@@ -34,9 +34,9 @@ const formSchema = z.object({
   studentCardNumber: z.string().min(5, {
     message: "Please enter your student card number.",
   }),
-  motivation: z.string().min(10, {
-    message: "Please tell us a bit more about your motivation (min. 10 characters).",
-  }),
+  // --- CHANGE ---
+  // Made the motivation field optional by removing .min() and adding .optional()
+  motivation: z.string().optional(),
 });
 
 const JoinForm: React.FC = () => {
@@ -52,7 +52,7 @@ const JoinForm: React.FC = () => {
       phone: "",
       faculty: "",
       studentCardNumber: "",
-      motivation: "",
+      motivation: "", // Default value is still an empty string, which is fine
     },
   });
 
@@ -78,12 +78,11 @@ const JoinForm: React.FC = () => {
           phone: values.phone,
           faculty: values.faculty,
           studentCardNumber: values.studentCardNumber,
-          motivation: values.motivation,
+          motivation: values.motivation || "", // Send empty string if optional field is undefined
           timestamp: new Date().toISOString(),
         }),
       });
 
-      // With no-cors mode, we can't read the response, so we assume success
       setSubmitMessage({ type: 'success', text: 'Application submitted successfully! We\'ll be in touch soon.' });
       form.reset();
     } catch (error) {
@@ -245,7 +244,8 @@ const JoinForm: React.FC = () => {
                 name="motivation"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-base sm:text-lg font-semibold text-gray-700">Why do you want to join?</FormLabel>
+                    {/* You could also make the label text indicate it's optional, e.g., "Why do you want to join? (Optional)" */}
+                    <FormLabel className="text-base sm:text-lg font-semibold text-gray-700">Why do you want to join? <span className="font-normal text-gray-500">(Optional)</span></FormLabel>
                     <div className="relative group">
                       <Pen className="absolute left-4 top-4 h-5 w-5 text-gray-400 group-focus-within:text-[#2d5a3d] transition-colors" />
                       <FormControl>
@@ -256,7 +256,8 @@ const JoinForm: React.FC = () => {
                         />
                       </FormControl>
                     </div>
-                    <FormMessage />
+                    {/* FormMessage will no longer show the "min 10 characters" error */}
+                    <FormMessage /> 
                   </FormItem>
                 )}
               />
