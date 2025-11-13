@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { User, Mail, Pen, Sparkles } from 'lucide-react';
+import { User, Mail, Pen, Sparkles, Phone, GraduationCap, CreditCard } from 'lucide-react';
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -25,27 +25,73 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
+  phone: z.string().min(10, {
+    message: "Please enter a valid phone/WhatsApp number.",
+  }),
+  faculty: z.string().min(2, {
+    message: "Please enter your faculty.",
+  }),
+  studentCardNumber: z.string().min(5, {
+    message: "Please enter your student card number.",
+  }),
   motivation: z.string().min(10, {
     message: "Please tell us a bit more about your motivation (min. 10 characters).",
   }),
 });
 
 const JoinForm: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
   // 1. Define the form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
+      phone: "",
+      faculty: "",
+      studentCardNumber: "",
       motivation: "",
     },
   });
 
   // 2. Define a submit handler
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // This is where you would send the data to your backend
-    console.log("Form submitted!", values);
-    // You could show a success message here
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    setSubmitMessage(null);
+
+    try {
+      // Google Sheets Web App URL
+      // Replace 'YOUR_GOOGLE_APPS_SCRIPT_URL' with your actual deployment URL
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZGoWzD1RM1tEzI9e5BliDg0kD4lhXvZYKYsklwABvbDszM40v4g_jodw7JA2ebM1E/exec';
+      
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Required for Google Apps Script
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          faculty: values.faculty,
+          studentCardNumber: values.studentCardNumber,
+          motivation: values.motivation,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      // With no-cors mode, we can't read the response, so we assume success
+      setSubmitMessage({ type: 'success', text: 'Application submitted successfully! We\'ll be in touch soon.' });
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitMessage({ type: 'error', text: 'Something went wrong. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -124,6 +170,73 @@ const JoinForm: React.FC = () => {
                     </FormItem>
                   )}
                 />
+
+                {/* Phone/WhatsApp Field */}
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-base sm:text-lg font-semibold text-gray-700">Phone / WhatsApp</FormLabel>
+                      <div className="relative group">
+                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-[#2d5a3d] transition-colors" />
+                        <FormControl>
+                          <Input 
+                            placeholder="" 
+                            type="tel"
+                            {...field} 
+                            className="pl-12 h-12 sm:h-14 text-base sm:text-lg border-gray-300 focus:border-[#2d5a3d] focus:ring-[#2d5a3d] rounded-xl transition-all duration-300 hover:border-gray-400"
+                          />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Faculty Field */}
+                <FormField
+                  control={form.control}
+                  name="faculty"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-base sm:text-lg font-semibold text-gray-700">Faculty</FormLabel>
+                      <div className="relative group">
+                        <GraduationCap className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-[#2d5a3d] transition-colors" />
+                        <FormControl>
+                          <Input 
+                            placeholder="" 
+                            {...field} 
+                            className="pl-12 h-12 sm:h-14 text-base sm:text-lg border-gray-300 focus:border-[#2d5a3d] focus:ring-[#2d5a3d] rounded-xl transition-all duration-300 hover:border-gray-400"
+                          />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Student Card Number Field */}
+                <FormField
+                  control={form.control}
+                  name="studentCardNumber"
+                  render={({ field }) => (
+                    <FormItem className="lg:col-span-2">
+                      <FormLabel className="text-base sm:text-lg font-semibold text-gray-700">Student Card Number</FormLabel>
+                      <div className="relative group">
+                        <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-[#2d5a3d] transition-colors" />
+                        <FormControl>
+                          <Input 
+                            placeholder="" 
+                            {...field} 
+                            className="pl-12 h-12 sm:h-14 text-base sm:text-lg border-gray-300 focus:border-[#2d5a3d] focus:ring-[#2d5a3d] rounded-xl transition-all duration-300 hover:border-gray-400"
+                          />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
               
               {/* Motivation Field */}
@@ -147,15 +260,27 @@ const JoinForm: React.FC = () => {
                   </FormItem>
                 )}
               />
+
+              {/* Submit Message */}
+              {submitMessage && (
+                <div className={`p-4 rounded-xl text-center ${
+                  submitMessage.type === 'success' 
+                    ? 'bg-green-50 text-green-800 border border-green-200' 
+                    : 'bg-red-50 text-red-800 border border-red-200'
+                }`}>
+                  {submitMessage.text}
+                </div>
+              )}
               
               {/* Submit Button */}
               <div className="flex justify-center pt-4">
                 <Button 
                   type="submit" 
                   size="lg"
-                  className="group bg-gradient-to-r from-[#c85a25] to-[#d97638] hover:from-[#d97638] hover:to-[#c85a25] text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg sm:text-xl font-bold px-10 sm:px-16 py-6 sm:py-7 rounded-xl"
+                  disabled={isSubmitting}
+                  className="group bg-gradient-to-r from-[#c85a25] to-[#d97638] hover:from-[#d97638] hover:to-[#c85a25] text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg sm:text-xl font-bold px-10 sm:px-16 py-6 sm:py-7 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span>Join Now</span>
+                  <span>{isSubmitting ? 'Submitting...' : 'Join Now'}</span>
                   <Sparkles className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
                 </Button>
               </div>
