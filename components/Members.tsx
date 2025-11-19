@@ -15,12 +15,13 @@ const members: Member[] = [
   { name: 'Ouail Yasmine Nourhane', role: 'President', delay: '0.1s', initials: 'OY', color: 'from-[#2d5a3d] to-[#1e5f5a]' },
   { name: 'Yanis Benamara', role: 'Vice President', delay: '0.2s', initials: 'YB', color: 'from-[#1e5f5a] to-[#2d8b84]' },
   { name: 'Nassim Kada', role: 'Engineer & Technology Manager', delay: '0.3s', initials: 'NK', color: 'from-[#c85a25] to-[#d97638]', image: '/nassim.png' },
-  { name: 'Anis Hammad', role: 'Secretary General', delay: '0.4s',initials:'AH', color:'from-[#1a5c61] to-[#2963df]' },
-  { name: 'Sarah Aissaoui',role:'Media Representative',delay:'0.5s',initials:'SA',color:'from-[#2d5a3d] to-[#1e5f5a]'},
-  { name: 'Yasser Mokrani',role:'Internal & External Relations Officer',delay:'0.6s', initials:'YM',color:'from-[#2d5a3d] to-[#1e5f5a]'},
-  { name: 'Aya Lounis',role:'Voice-over Artist',delay:'0.7s',initials:'AL',color:'from-[#2d5a3d] to-[#1e5f5a]'},
-  { name: 'Nassim Amanzougaghen',role:'Designer',delay:'0.9s',initials:'NA',color:'from-[#2d5a3d] to-[#1e5f5a]'},
-  { name: 'Mahdi Aitzekagh',role:'Media Manager',delay:'0.8s',initials:'MA',color:'from-[#2d5a3d] to-[#1e5f5a]'},
+  { name: 'Ikram Kara', role:'Handmade Activities',delay:'0.4s',initials:'IK',color:'from-[#323A5C] to-[#5D3954]' },
+  { name: 'Anis Hammad', role: 'Secretary General', delay: '0.5s',initials:'AH', color:'from-[#1a5c61] to-[#2963df]' },
+  { name: 'Sarah Aissaoui',role:'Media Representative',delay:'0.6s',initials:'SA',color:'from-[#2d5a3d] to-[#1e5f5a]'},
+  { name: 'Yasser Mokrani',role:'Internal & External Relations Officer',delay:'0.7s', initials:'YM',color:'from-[#2d5a3d] to-[#1e5f5a]'},
+  { name: 'Aya Lounis',role:'Voice-over Artist',delay:'0.8s',initials:'AL',color:'from-[#2d5a3d] to-[#1e5f5a]'},
+  { name: 'Nacim Amanzougaghene',role:'Designer',delay:'0.9s',initials:'NA',color:'from-[#2d5a3d] to-[#1e5f5a]',image:'/'},
+  { name: 'Mahdi Aitzekagh',role:'Media Manager',delay:'1s',initials:'MA',color:'from-[#2d5a3d] to-[#1e5f5a]'},
 ];
 
 const Members: React.FC = () => {
@@ -42,7 +43,7 @@ const Members: React.FC = () => {
         <div className="absolute bottom-40 -right-20 sm:-right-40 w-28 h-28 sm:w-80 sm:h-80 bg-[#c85a25]/10 rounded-full blur-3xl animate-pulse delay-700"></div>
         <div className="absolute top-1/2 left-1/3 w-24 h-24 sm:w-72 sm:h-72 bg-[#1e5f5a]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
-
+·
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-12 lg:mb-16 animate-fade-in-up">
