@@ -13,10 +13,10 @@ type Member = {
 
 const members: Member[] = [
   { name: 'Ouail Yasmine Nourhane', role: 'President', delay: '0.1s', initials: 'OY', color: 'from-[#2d5a3d] to-[#1e5f5a]',image:'/yasmine.jpg' },
-  { name: 'Yanis Benamara', role: 'Vice President', delay: '0.2s', initials: 'YB', color: 'from-[#1e5f5a] to-[#2d8b84]' },
+  { name: 'Yanis Benamara', role: 'Vice President', delay: '0.2s', initials: 'YB', color: 'from-[#1e5f5a] to-[#2d8b84]',image:'/yanis.jpeg' },
   { name: 'Nassim Kada', role: 'Engineer & Technology Manager', delay: '0.3s', initials: 'NK', color: 'from-[#c85a25] to-[#d97638]', image: '/nassim.png' },
   { name: 'Ikram Kara', role:'Handmade Activities',delay:'0.4s',initials:'IK',color:'from-[#323A5C] to-[#5D3954]' ,image:'ikram.jpg'},
-  { name: 'Anis Hammad', role: 'Secretary General', delay: '0.5s',initials:'AH', color:'from-[#1a5c61] to-[#2963df]' },
+  { name: 'Anis Hammad', role: 'Secretary General', delay: '0.5s',initials:'AH', color:'from-[#1a5c61] to-[#2963df]',image:'anis.jpeg' },
   { name: 'Sarah Aissaoui',role:'Media Representative',delay:'0.6s',initials:'SA',color:'from-[#2d5a3d] to-[#1e5f5a]'},
   { name: 'Yasser Mokrani',role:'Internal & External Relations Officer',delay:'0.7s', initials:'YM',color:'from-[#2d5a3d] to-[#1e5f5a]'},
   { name: 'Aya Lounis',role:'Voice-over Artist',delay:'0.8s',initials:'AL',color:'from-[#2d5a3d] to-[#1e5f5a]'},
